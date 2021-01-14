@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest
@@ -36,6 +37,22 @@ public class UserServiceTest {
         //assert
         Assertions.assertEquals(2, userList.size(), "FindAll should return 2 users");
 
+    }
+
+    @Test
+    void saveUser(){
+        //arrange
+        User mockUser = new User(1,"mahir@gmail.com", "jgjgjg3592");
+        doReturn(mockUser).when(userRepository).save(any());
+
+        //act
+        User returnedUser = userService.save(mockUser);
+
+        //assert
+        Assertions.assertNotNull(returnedUser, "Saved user should not be null");
+        Assertions.assertEquals(1, returnedUser.getId());
+        Assertions.assertEquals("mahir@gmail.com", returnedUser.getEmail());
+        Assertions.assertEquals("jgjgjg3592", returnedUser.getPasswordHash());
 
     }
 
