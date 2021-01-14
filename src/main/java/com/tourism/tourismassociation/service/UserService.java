@@ -11,4 +11,6 @@ public class UserService {
 
     public List<User> findAll(){ return new ArrayList<>(); }
 
+    public User save(User user){ return  new User(); }
+
 }

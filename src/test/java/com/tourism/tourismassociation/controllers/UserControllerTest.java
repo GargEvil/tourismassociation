@@ -1,24 +1,30 @@
 package com.tourism.tourismassociation.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @WebMvcTest
@@ -45,6 +51,28 @@ public class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 //assert
                 .andExpect(jsonPath("$", hasSize(2))).andDo(print());
+
+
+    }
+
+    @Test
+    void successfullyCreatedUser() throws Exception {
+        //arrange
+        User createUser = new User(1,"mahir@gmail.com", "hghghg35232" );
+        when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(createUser);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String createUserJSON = objectMapper.writeValueAsString(createUser);
+
+        //act
+        ResultActions result = mockMvc.perform(post("/users")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createUserJSON));
+
+        //assert
+        result.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.email").value("mahir@gmail.com"))
+                .andExpect(jsonPath("$.passwordHash").value("hghghg35232"));
+
 
 
     }
