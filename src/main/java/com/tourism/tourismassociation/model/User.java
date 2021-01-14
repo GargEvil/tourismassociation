@@ -2,6 +2,7 @@ package com.tourism.tourismassociation.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 public class User {
 
     @Id
+    @GeneratedValue
     private long id;
 
 
@@ -20,7 +22,8 @@ public class User {
     public User() {}
 
     public User( String email, String passwordHash){
-
+        this.email = email;
+        this.passwordHash = passwordHash;
     }
 
     public User(long id, String email, String passwordHash) {
