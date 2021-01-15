@@ -1,21 +1,23 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.model.User;
-import com.tourism.tourismassociation.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
+    /**
+    *Returns all users in database
 
+     * @return All users in the database
+     **/
+     List<User> findAll();
 
-    public List<User> findAll(){ return userRepository.findAll(); }
-
-    public User save(User user){ return  userRepository.save(user); }
-
+    /**
+     * Saves the specified user
+     *
+     * @param user   The user to save to the database
+     * @return       The saved user.
+     */
+     User save(User user);
 }
