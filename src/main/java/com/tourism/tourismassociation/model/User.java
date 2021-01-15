@@ -1,16 +1,26 @@
 package com.tourism.tourismassociation.model;
 
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class User {
+// Refactoring code with Lombok, currently there is no option to exclude
+// id from constructor, other than creating base class and inheritance
 
+// check the way that setter for id should only apply on test methods
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
 
@@ -19,40 +29,10 @@ public class User {
 
     private String passwordHash;
 
-    public User() {}
 
     public User( String email, String passwordHash){
         this.email = email;
         this.passwordHash = passwordHash;
     }
 
-    public User(long id, String email, String passwordHash) {
-        this.id = id;
-        this.email = email;
-        this.passwordHash = passwordHash;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
 }
