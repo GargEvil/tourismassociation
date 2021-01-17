@@ -1,6 +1,7 @@
 package com.tourism.tourismassociation.repository;
 
 import com.tourism.tourismassociation.model.User;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,21 @@ public class UserRepositoryTest {
         assertEquals(2, users.size(), "We should have 2 users in database.");
     }
 
+    @Test
+    public void getUserByIdFromDB(){
+        //Find user with id 1
+        Optional<User> user = userRepository.findById(1L);
+
+        //Validate that we found it
+        Assertions.assertTrue(user.isPresent());
+
+        // Validate user values
+        User u = user.get();
+        Assertions.assertEquals(1L, u.getId());
+        Assertions.assertEquals("mahir@gmail.com", u.getEmail());
+        Assertions.assertEquals("uhuh4848482", u.getPasswordHash());
+
+    }
     @Test
     public void createUserAndSaveToDB(){
     // Creating User

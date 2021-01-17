@@ -4,6 +4,7 @@ import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.repository.UserRepository;
 import com.tourism.tourismassociation.service.UserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -25,6 +27,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @Test
+    @DisplayName("Test findAllUsers - Success")
     void getAllUsers(){
         //arrange
         User mockUser = new User("mahir@gmail.com","huhuh452323");
@@ -40,6 +43,21 @@ public class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Test findById - Success")
+    void getById(){
+        //arrange
+        User mockUser = new User (3L,"muahmed@gmail.com", "rjfifjs483937");
+        doReturn(Optional.of(mockUser)).when(userRepository).findById(3L);
+
+        //act
+        Optional<User> returnedUser = userService.findById(3L);
+
+        //assert
+        Assertions.assertTrue(returnedUser.isPresent(), "User was not found");
+        Assertions.assertSame(returnedUser.get(), mockUser, "Users should be the same");
+    }
+    @Test
+    @DisplayName("Test SaveUser - Success")
     void saveUser(){
         //arrange
         User mockUser = new User(1,"mahir@gmail.com", "jgjgjg3592");
