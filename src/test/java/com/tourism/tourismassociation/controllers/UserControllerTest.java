@@ -64,10 +64,10 @@ public class UserControllerTest {
     void successfullyFoundUserById() throws Exception {
         //arrange
         User mockUser = new User(3, "haris.silajdzic@gmail.com", "ztztz493839");
-        doReturn(Optional.of(mockUser)).when(userService).findById(3);
+        doReturn(Optional.of(mockUser)).when(userService).findById(3L);
 
         //act
-        mockMvc.perform(MockMvcRequestBuilders.get("/user/{id}",3 ))
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{id}",3 ))
 
                 //Validate the response code and content type
                 .andExpect(status().isOk())
@@ -75,7 +75,7 @@ public class UserControllerTest {
 
                 //Validate the headers
                 .andExpect(header().string(HttpHeaders.ETAG, "\"3\""))
-                .andExpect(header().string(HttpHeaders.LOCATION, "/user/3"))
+                .andExpect(header().string(HttpHeaders.LOCATION, "/users/3"))
 
                 //Validate the returned fields
                 .andExpect(jsonPath("$.id", is(3)))

@@ -28,5 +28,5 @@ public interface UserService {
      * @param  id       ID of the user to retrieve
      * @return          Requested User if found
      */
-     Optional<User> findById(int id);
+     Optional<User> findById(Long id);
 }
