@@ -3,12 +3,14 @@ package com.tourism.tourismassociation.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.service.UserService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,13 +19,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest
@@ -38,6 +42,7 @@ public class UserControllerTest {
 
 
     @Test
+    @DisplayName("GET /user - Found")
     public void getAllUsers() throws Exception {
         //arrange
         List<User> userList = new ArrayList<>();
@@ -55,6 +60,33 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("GET /user/{id} - Found")
+    void successfullyFoundUserById() throws Exception {
+        //arrange
+        User mockUser = new User(3, "haris.silajdzic@gmail.com", "ztztz493839");
+        doReturn(Optional.of(mockUser)).when(userService).findById(3);
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/{id}",3 ))
+
+                //Validate the response code and content type
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+
+                //Validate the headers
+                .andExpect(header().string(HttpHeaders.ETAG, "\"3\""))
+                .andExpect(header().string(HttpHeaders.LOCATION, "/user/3"))
+
+                //Validate the returned fields
+                .andExpect(jsonPath("$.id", is(3)))
+                .andExpect(jsonPath("$.email",is("haris.silajdzic@gmail.com")))
+                .andExpect(jsonPath("$.passwordHash",is("ztztz493839")));
+
+
+    }
+
+    @Test
+    @DisplayName("POST /user - success")
     void successfullyCreatedUser() throws Exception {
         //arrange
         User createUser = new User(1,"mahir@gmail.com", "hghghg35232" );

@@ -3,6 +3,7 @@ package com.tourism.tourismassociation.service;
 import com.tourism.tourismassociation.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -20,4 +21,12 @@ public interface UserService {
      * @return       The saved user.
      */
      User save(User user);
+
+
+    /**
+     * Returns the user with specified id
+     * @param  id       ID of the user to retrieve
+     * @return          Requested User if found
+     */
+     Optional<User> findById(int id);
 }
