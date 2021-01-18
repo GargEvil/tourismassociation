@@ -10,7 +10,6 @@ import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -74,10 +73,6 @@ public class UserControllerTest {
                 //Validate the response code and content type
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-
-                //Validate the headers
-                .andExpect(header().string(HttpHeaders.ETAG, "\"3\""))
-                .andExpect(header().string(HttpHeaders.LOCATION, "/users/3"))
 
                 //Validate the returned fields
                 .andExpect(jsonPath("$.id", is(3)))

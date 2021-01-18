@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -24,26 +22,12 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    ResponseEntity<User> getUser(@PathVariable Long id)
+    ResponseEntity<User> getUser(@PathVariable("id") Long id)
     {
-
-        //Should find a way to use AutoMapper in java
-        return (ResponseEntity<User>) userService.findById(id)
-                .map(user -> {
-                    try {
-                        return ResponseEntity
-                                .ok()
-                                .eTag(Long.toString(user.getId()))
-                                .location(new URI("/users/" + user.getId()))
-                                .body(user);
-                    } catch (URISyntaxException e ) {
-                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-                    }
-                })
-                .orElse(ResponseEntity.notFound().build());
-
-
-
+        return userService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound()
+                        .build());
     }
 
 

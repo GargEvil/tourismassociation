@@ -1,6 +1,7 @@
 package com.tourism.tourismassociation.model;
 
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,8 +22,10 @@ public class User {
     private long id;
 
 
+    @NotNull
     private String email;
 
+    @NotNull
     @Column(name="password_hash")
     private String passwordHash;
 
