@@ -1,5 +1,6 @@
 package com.tourism.tourismassociation.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Landmark {
 
     @Id
@@ -42,4 +44,12 @@ public class Landmark {
     @OneToMany(fetch =FetchType.LAZY,mappedBy = "id")
     private List<Rating> ratings;
 
+    //Constructor made for testing purposes
+    public Landmark(int id, String name, double geoLatitude, double geoLongitude, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.geoLatitude=geoLatitude;
+        this.geoLongitude = geoLongitude;
+        this.active = active;
+    }
 }

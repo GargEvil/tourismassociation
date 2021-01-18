@@ -1,5 +1,6 @@
 package com.tourism.tourismassociation.controllers;
 
+import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,11 @@ public class UserController {
 
 
     @PostMapping("/users")
-    ResponseEntity<User> CreateUser(@RequestBody User user)
+    ResponseEntity<User> CreateUser(@RequestBody UserDTO user)
     {
-        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+        User userEntity = user.convertToUserEntity();
+
+        return new ResponseEntity<>(userService.save(userEntity), HttpStatus.CREATED);
     }
 
 }

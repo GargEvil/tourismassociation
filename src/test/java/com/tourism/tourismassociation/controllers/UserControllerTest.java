@@ -44,7 +44,7 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("GET /user - Found")
-    public void getAllUsers() throws Exception {
+     void getAllUsers() throws Exception {
         //arrange
         List<User> userList = new ArrayList<>();
         userList.add(new User(1,"mahir@gmail.com","zhzhzh42732"));
@@ -86,7 +86,7 @@ public class UserControllerTest {
     @DisplayName("POST /user - success")
     void successfullyCreatedUser() throws Exception {
         //arrange
-        User createUser = new User(1,"mahir@gmail.com", "hghghg35232" );
+        User createUser = new User("mahir@gmail.com", "hghghg35232" );
         when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(createUser);
         ObjectMapper objectMapper = new ObjectMapper();
         String createUserJSON = objectMapper.writeValueAsString(createUser);
