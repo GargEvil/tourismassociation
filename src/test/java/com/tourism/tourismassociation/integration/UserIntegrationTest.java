@@ -1,7 +1,7 @@
 package com.tourism.tourismassociation.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tourism.tourismassociation.model.User;
+import com.tourism.tourismassociation.DTO.UserDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class UserIntegrationTest {
     @Test
     @DisplayName("POST /users - SUCCESS")
     void createUser() throws Exception {
-        User user = new User(5,"samir@gmail.com", "sfafmansfl38230023");
+        UserDTO user = new UserDTO("samir@gmail.com", "sfafmansfl38230023");
 
         mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -1,8 +1,7 @@
-package com.tourism.tourismassociation.services;
+package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.repository.UserRepository;
-import com.tourism.tourismassociation.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.tourism.tourismassociation.controllers;
+package com.tourism.tourismassociation.controller;
 
 import com.tourism.tourismassociation.model.Landmark;
 import com.tourism.tourismassociation.service.LandmarkService;

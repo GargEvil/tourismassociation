@@ -1,4 +1,4 @@
-package com.tourism.tourismassociation.controllers;
+package com.tourism.tourismassociation.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tourism.tourismassociation.model.User;

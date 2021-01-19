@@ -1,4 +1,4 @@
-package com.tourism.tourismassociation.controllers;
+package com.tourism.tourismassociation.controller;
 
 import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
@@ -11,18 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @RequestMapping(method = RequestMethod.GET)
     ResponseEntity<List<User>> getAllUsers()
     {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{id}")
+    @RequestMapping(value="{id}",method = RequestMethod.GET)
     ResponseEntity<User> getUser(@PathVariable("id") Long id)
     {
         return userService.findById(id)
@@ -33,7 +34,7 @@ public class UserController {
 
 
 
-    @PostMapping("/users")
+    @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<User> CreateUser(@RequestBody UserDTO user)
     {
         User userEntity = user.convertToUserEntity();
