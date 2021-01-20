@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @RequestMapping(value="{id}",method = RequestMethod.GET)
-    ResponseEntity<User> getUser(@PathVariable("id") Long id)
+    ResponseEntity<User> getUserById(@PathVariable("id") Long id)
     {
         return userService.findById(id)
                 .map(ResponseEntity::ok)
