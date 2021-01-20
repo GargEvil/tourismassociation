@@ -25,7 +25,7 @@ public class LandmarkServiceTest {
 
     @Test
     @DisplayName("Test findAllLandmarks - SUCCESS")
-    void getAllLandmarks(){
+    void getAllLandmarksSuccess(){
         //arrange
         Landmark mockLandmark1 = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
         Landmark mockLandmark2 = new Landmark(2,"Skadarlija",43.8598,18.4313, true);
@@ -36,5 +36,22 @@ public class LandmarkServiceTest {
 
         //assert
         Assertions.assertEquals(2,landmarkList.size(), "There should be 2 landmarks in list");
+
+    }
+
+    @Test
+    @DisplayName(" Test findAllLandmarks - FAILURE")
+    void getAllLandmarksFailure(){
+        //arrange
+        Landmark mockLandmark1 = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
+        Landmark mockLandmark2 = new Landmark(2,"Skadarlija",43.8598,18.4313, true);
+        Landmark mockLandmark3 = new Landmark(3,"Skadarlija",43.8598,18.4313, true);
+        doReturn(Arrays.asList(mockLandmark1,mockLandmark2,mockLandmark3)).when(landmarkRepository).findAll();
+
+        //act
+        List<Landmark> landmarkList = landmarkService.findAll();
+
+        //assert
+        Assertions.assertNotEquals(2, landmarkList.size(), "It should show an error");
     }
 }

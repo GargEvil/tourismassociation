@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class LandmarkServiceImpl implements LandmarkService {
 
-    @Autowired
+    @Autowired(required = false)
     private LandmarkRepository landmarkRepository;
 
     public List<Landmark> findAll() {
