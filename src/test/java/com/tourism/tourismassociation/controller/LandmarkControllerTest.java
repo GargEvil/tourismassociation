@@ -24,8 +24,7 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -132,8 +131,23 @@ public class LandmarkControllerTest {
 
 
 
+
     }
 
+    @Test
+    @DisplayName("DELETE /landmarks/{id} - SUCCESS")
+    void landmarkDeleteSuccess() throws Exception {
+        //arrange
+        Landmark landmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
+        doReturn(Optional.of(landmark)).when(landmarkService).findById(1L);
+        doReturn(true).when(landmarkService).delete(1L);
+
+        //act
+        mockMvc.perform(delete("/landmarks/{id}",1))
+                //assert
+                .andExpect(status().isOk());
+
+    }
     static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);

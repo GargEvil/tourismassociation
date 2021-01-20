@@ -14,4 +14,6 @@ public interface LandmarkService {
     Landmark save(Landmark landmark);
 
     boolean update(Landmark landmark);
+
+    boolean delete(Long id);
 }

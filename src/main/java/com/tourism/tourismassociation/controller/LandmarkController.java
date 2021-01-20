@@ -60,5 +60,18 @@ public class LandmarkController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
+    @RequestMapping(value="{id}", method = RequestMethod.DELETE)
+    ResponseEntity<?> deleteLandmark(@PathVariable Long id){
+
+        Optional<Landmark> existingLandmark = landmarkService.findById(id);
+
+        return existingLandmark.map(l ->{
+            if(landmarkService.delete(l.getId())){
+                return ResponseEntity.ok().build();
+            }else{
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }).orElse(ResponseEntity.notFound().build());
+    }
 
 }

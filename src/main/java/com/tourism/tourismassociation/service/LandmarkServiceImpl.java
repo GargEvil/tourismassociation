@@ -26,4 +26,8 @@ public class LandmarkServiceImpl implements LandmarkService {
     public boolean update(Landmark landmark) {
         return false;
     }
+
+    public boolean delete(Long id) {
+        return false;
+    }
 }
