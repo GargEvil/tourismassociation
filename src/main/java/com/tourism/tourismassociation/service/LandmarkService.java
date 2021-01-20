@@ -12,4 +12,6 @@ public interface LandmarkService {
     Optional<Landmark> findById(Long id);
 
     Landmark save(Landmark landmark);
+
+    boolean update(Landmark landmark);
 }

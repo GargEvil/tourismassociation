@@ -6,7 +6,6 @@ import com.tourism.tourismassociation.service.LandmarkService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,9 +21,11 @@ import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -85,7 +86,7 @@ public class LandmarkControllerTest {
     void successfullyCreateLandmark() throws Exception {
         //arrange - Eventually should create LandmarkDTO and map it to LandmarkEntity
         Landmark mockLandmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
-        when(landmarkService.save(ArgumentMatchers.any(Landmark.class))).thenReturn(mockLandmark);
+        when(landmarkService.save(any(Landmark.class))).thenReturn(mockLandmark);
         ObjectMapper objectMapper = new ObjectMapper();
         String createLandmarkJSON = objectMapper.writeValueAsString(mockLandmark);
 
@@ -105,7 +106,41 @@ public class LandmarkControllerTest {
 
     }
 
+    @Test
+    @DisplayName("PUT /landmarks/{id} - UPDATED")
+    void landmarkPutSuccess() throws Exception {
+        //arrange
+        Landmark mockLandmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
+        Landmark putLandmark = new Landmark("Skadarlija", 55.231, 15.531, true);
+        doReturn(Optional.of(mockLandmark)).when(landmarkService).findById(1L);
+        doReturn(true).when(landmarkService).update(any());
 
+        //act
+        mockMvc.perform(put("/landmarks/{id}",1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(putLandmark)))
+
+                //assert
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.name", is("Skadarlija")))
+                .andExpect(jsonPath("$.geoLatitude", is(55.231)))
+                .andExpect(jsonPath("$.geoLongitude", is(15.531)))
+                .andExpect(jsonPath("$.active", is(true)));
+
+
+
+    }
+
+    static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }

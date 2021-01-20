@@ -22,4 +22,8 @@ public class LandmarkServiceImpl implements LandmarkService {
     public Landmark save(Landmark landmark) {
         return null;
     }
+
+    public boolean update(Landmark landmark) {
+        return false;
+    }
 }
