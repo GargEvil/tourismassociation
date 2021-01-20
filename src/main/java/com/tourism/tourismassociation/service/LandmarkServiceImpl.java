@@ -18,4 +18,8 @@ public class LandmarkServiceImpl implements LandmarkService {
     public Optional<Landmark> findById(Long id) {
         return Optional.empty();
     }
+
+    public Landmark save(Landmark landmark) {
+        return null;
+    }
 }

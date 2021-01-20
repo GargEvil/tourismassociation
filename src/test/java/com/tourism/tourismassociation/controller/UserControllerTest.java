@@ -1,6 +1,7 @@
 package com.tourism.tourismassociation.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.service.UserService;
 import org.junit.jupiter.api.DisplayName;
@@ -86,8 +87,8 @@ public class UserControllerTest {
     @DisplayName("POST /user - success")
     void successfullyCreatedUser() throws Exception {
         //arrange
-        User createUser = new User("mahir@gmail.com", "hghghg35232" );
-        when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(createUser);
+        UserDTO createUser = new UserDTO("mahir@gmail.com", "hghghg35232" );
+        when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(createUser.convertToUserEntity());
         ObjectMapper objectMapper = new ObjectMapper();
         String createUserJSON = objectMapper.writeValueAsString(createUser);
 

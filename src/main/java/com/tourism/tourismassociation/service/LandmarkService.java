@@ -10,4 +10,6 @@ public interface LandmarkService {
     List<Landmark> findAll();
 
     Optional<Landmark> findById(Long id);
+
+    Landmark save(Landmark landmark);
 }
