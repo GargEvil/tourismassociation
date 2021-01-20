@@ -19,11 +19,11 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
     public Optional<Landmark> findById(Long id) {
-        return Optional.empty();
+        return landmarkRepository.findById(id);
     }
 
     public Landmark save(Landmark landmark) {
-        return null;
+        return landmarkRepository.save(landmark);
     }
 
     public boolean update(Landmark landmark) {
