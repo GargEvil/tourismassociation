@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LandmarkServiceImpl implements LandmarkService {
@@ -12,5 +13,9 @@ public class LandmarkServiceImpl implements LandmarkService {
 
     public List<Landmark> findAll() {
         return new ArrayList<>();
+    }
+
+    public Optional<Landmark> findById(Long id) {
+        return Optional.empty();
     }
 }

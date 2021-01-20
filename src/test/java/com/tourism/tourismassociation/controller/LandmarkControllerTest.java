@@ -15,11 +15,15 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 @ExtendWith(SpringExtension.class)
@@ -46,8 +50,34 @@ public class LandmarkControllerTest {
                 //assert
                 .andExpect(jsonPath("$", hasSize(2))).andDo(print());
 
+    }
+
+
+    @Test
+    @DisplayName("GET /landmarks/{id} - Found")
+    void successfullyFoundLandmarkById() throws Exception {
+        //arrange
+        Landmark mockLandmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
+        doReturn(Optional.of(mockLandmark)).when(landmarkService).findById(1L);
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders.get("/landmarks/{id}",1))
+                //assert
+                //Validating response type and content type
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+
+
+                //Validate the returned fields
+                .andExpect(jsonPath("$.id",is(1)))
+                .andExpect(jsonPath("$.name",is("Bascarsija")))
+                .andExpect(jsonPath("$.geoLatitude",is(43.8598)))
+                .andExpect(jsonPath("$.geoLongitude",is(18.4313)))
+                .andExpect(jsonPath("$.active", is(false)));
 
     }
+
+
 
 
 }
