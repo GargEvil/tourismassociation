@@ -81,6 +81,17 @@ public class LandmarkControllerTest {
     }
 
     @Test
+    @DisplayName("GET /landmarks/{id} - NOT FOUND")
+    void getLandmarkByIdNotFound() throws Exception {
+        //arrange
+        doReturn(Optional.empty()).when(landmarkService).findById(1L);
+
+        //act
+        mockMvc.perform(get("/landmarks/{id}", 1))
+                //assert
+                .andExpect(status().isNotFound());
+    }
+    @Test
     @DisplayName("POST /landmarks - CREATED")
     void successfullyCreateLandmark() throws Exception {
         //arrange - Eventually should create LandmarkDTO and map it to LandmarkEntity
@@ -135,6 +146,22 @@ public class LandmarkControllerTest {
     }
 
     @Test
+    @DisplayName("/PUT /landmarks/{id} - NOT FOUND")
+    void landmarkUpdateNotFound() throws Exception {
+        //arrange
+        Landmark updateLandmark = new Landmark(2,"Bascarsija",43.8598,18.4313, false);
+        doReturn(Optional.empty()).when(landmarkService).findById(1L);
+
+        //act
+        mockMvc.perform(put("/landmarks/{id}",1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(updateLandmark)))
+
+                //assert
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     @DisplayName("DELETE /landmarks/{id} - SUCCESS")
     void landmarkDeleteSuccess() throws Exception {
         //arrange
@@ -148,6 +175,34 @@ public class LandmarkControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    @DisplayName("DELETE /landmarks/{id} - NOT FOUND")
+    void deleteLandmarkNotFound() throws Exception {
+        //arrange
+        doReturn(Optional.empty()).when(landmarkService).findById(1L);
+
+        //act
+        mockMvc.perform(delete("/landmarks/{id}",1))
+                //assert
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("DELETE /landmarks/{id} - FAILURE")
+    void deleteLandmarkFailure() throws Exception {
+        //arrange
+        Landmark landmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
+        doReturn(Optional.of(landmark)).when(landmarkService).findById(1L);
+        doReturn(false).when(landmarkService).delete(1L);
+
+        //act
+        mockMvc.perform(delete("/landmarks/{id}", 1))
+                //assert
+                .andExpect(status().isInternalServerError());
+
+    }
+
     static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
