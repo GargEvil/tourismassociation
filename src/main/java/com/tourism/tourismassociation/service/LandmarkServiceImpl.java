@@ -1,18 +1,21 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.model.Landmark;
+import com.tourism.tourismassociation.repository.LandmarkRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class LandmarkServiceImpl implements LandmarkService {
 
+    @Autowired
+    private LandmarkRepository landmarkRepository;
 
     public List<Landmark> findAll() {
-        return new ArrayList<>();
+        return landmarkRepository.findAll();
     }
 
     public Optional<Landmark> findById(Long id) {
