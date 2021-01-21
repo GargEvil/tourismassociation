@@ -1,6 +1,7 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.DTO.UserDTO;
+import com.tourism.tourismassociation.helper.Utils;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,9 @@ public class UserServiceImpl implements UserService {
     @Autowired(required = false)
     private UserRepository userRepository;
 
+    @Autowired
+    private Utils utils;
+
 
     public List<User> findAll(){ return userRepository.findAll(); }
 
@@ -34,7 +38,9 @@ public class UserServiceImpl implements UserService {
 
         BeanUtils.copyProperties(user,userEntity);
 
-        userEntity.setUserId("42523");
+        String publicUserId = utils.generateUserId(15);
+        userEntity.setUserId(publicUserId);
+
         userEntity.setPasswordHash("nafanfak");
 
         User storedUser = userRepository.save(userEntity);
