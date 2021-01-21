@@ -2,11 +2,12 @@ package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     /**
     *Returns all users in database

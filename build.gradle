@@ -22,6 +22,8 @@ dependencies {
     /*
     compile('org.flywaydb:flyway-core')
      */
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
 
     compileOnly("org.projectlombok:lombok")
     testCompileOnly("org.projectlombok:lombok")

@@ -7,6 +7,9 @@ import com.tourism.tourismassociation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +25,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private Utils utils;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public List<User> findAll(){ return userRepository.findAll(); }
 
@@ -41,7 +46,7 @@ public class UserServiceImpl implements UserService {
         String publicUserId = utils.generateUserId(15);
         userEntity.setUserId(publicUserId);
 
-        userEntity.setPasswordHash("nafanfak");
+        userEntity.setPasswordHash(bCryptPasswordEncoder.encode(user.getPassword()));
 
         User storedUser = userRepository.save(userEntity);
 
@@ -58,5 +63,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }
