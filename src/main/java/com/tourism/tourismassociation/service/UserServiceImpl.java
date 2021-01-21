@@ -1,8 +1,10 @@
 package com.tourism.tourismassociation.service;
 
+import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +24,27 @@ public class UserServiceImpl implements UserService {
 
     public User save(User user){ return  userRepository.save(user); }
 
+    @Override
+    public UserDTO createUser(UserDTO user) {
+        User userEntity = new User();
+
+        BeanUtils.copyProperties(user,userEntity);
+
+        userEntity.setPasswordHash("nafanfak");
+        User storedUser = userRepository.save(userEntity);
+
+        UserDTO returnValue = new UserDTO();
+        BeanUtils.copyProperties(storedUser, returnValue);
+
+        return returnValue;
+
+    }
+
 
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
+
 
 }

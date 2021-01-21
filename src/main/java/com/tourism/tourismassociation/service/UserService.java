@@ -1,5 +1,6 @@
 package com.tourism.tourismassociation.service;
 
+import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public interface UserService {
      User save(User user);
 
 
+     UserDTO createUser(UserDTO user);
     /**
      * Returns the user with specified id
      * @param  id       ID of the user to retrieve

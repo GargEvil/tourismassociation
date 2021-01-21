@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.service.UserService;
+import com.tourism.tourismassociation.ui.request.UserRequestModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -87,8 +89,10 @@ public class UserControllerTest {
     @DisplayName("POST /user - success")
     void successfullyCreatedUser() throws Exception {
         //arrange
-        UserDTO createUser = new UserDTO("mahir@gmail.com", "hghghg35232" );
-        when(userService.save(ArgumentMatchers.any(User.class))).thenReturn(createUser.convertToUserEntity());
+        UserDTO userDTO = new UserDTO();
+        UserRequestModel createUser = new UserRequestModel("mahir@gmail.com", "hghghg35232" );
+        BeanUtils.copyProperties(createUser,userDTO);
+        when(userService.createUser(ArgumentMatchers.any(UserDTO.class))).thenReturn(userDTO);
         ObjectMapper objectMapper = new ObjectMapper();
         String createUserJSON = objectMapper.writeValueAsString(createUser);
 
@@ -99,8 +103,8 @@ public class UserControllerTest {
 
         //assert
         result.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.email").value("mahir@gmail.com"))
-                .andExpect(jsonPath("$.passwordHash").value("hghghg35232"));
+                .andExpect(jsonPath("$.email").value("mahir@gmail.com"));
+
 
 
 

@@ -1,7 +1,7 @@
 package com.tourism.tourismassociation.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tourism.tourismassociation.DTO.UserDTO;
+import com.tourism.tourismassociation.ui.request.UserRequestModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -53,7 +52,7 @@ public class UserIntegrationTest {
     @Test
     @DisplayName("POST /users - SUCCESS")
     void createUser() throws Exception {
-        UserDTO user = new UserDTO("samir@gmail.com", "sfafmansfl38230023");
+        UserRequestModel user = new UserRequestModel("samir@gmail.com", "sfafmansfl38230023");
 
         mockMvc.perform(post("/users")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -63,9 +62,9 @@ public class UserIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 
 
-                .andExpect(jsonPath("$.id", any(Integer.class)))
-                .andExpect(jsonPath("$.email", is("samir@gmail.com")))
-                .andExpect(jsonPath("$.passwordHash", is("sfafmansfl38230023")));
+
+                .andExpect(jsonPath("$.email", is("samir@gmail.com")));
+
 
 
     }

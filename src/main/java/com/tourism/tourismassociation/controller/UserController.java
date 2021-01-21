@@ -3,11 +3,16 @@ package com.tourism.tourismassociation.controller;
 import com.tourism.tourismassociation.DTO.UserDTO;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.service.UserService;
+import com.tourism.tourismassociation.ui.request.UserRequestModel;
+import com.tourism.tourismassociation.ui.response.UserResponseModel;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -35,11 +40,24 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<User> CreateUser(@RequestBody UserDTO user)
+    ResponseEntity<UserResponseModel> CreateUser(@RequestBody UserRequestModel userRequest)
     {
-        User userEntity = user.convertToUserEntity();
+        UserResponseModel returnedUser = new UserResponseModel();
 
-        return new ResponseEntity<>(userService.save(userEntity), HttpStatus.CREATED);
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(userRequest, userDTO);
+
+        UserDTO createdUser = userService.createUser(userDTO);
+        BeanUtils.copyProperties(createdUser, returnedUser);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(createdUser.getUserId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(returnedUser);
+
     }
 
 }
