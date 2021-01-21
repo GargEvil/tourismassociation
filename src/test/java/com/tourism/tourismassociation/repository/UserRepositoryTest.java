@@ -51,7 +51,7 @@ public class UserRepositoryTest {
     @Test
     public void createUserAndSaveToDB(){
     // Creating User
-        User user = new User("dzenita@hotmail.com", "vav35avs23s");
+        User user = new User("dzenita@hotmail.com", "vav35avs23s", "325232");
         User savedUser = userRepository.save(user);
 
     //Validating that user is saved

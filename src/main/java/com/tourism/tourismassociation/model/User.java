@@ -1,8 +1,10 @@
 package com.tourism.tourismassociation.model;
 
 
-import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -21,18 +23,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
-    @NotNull
+    @Column(nullable = false, length = 100)
     private String email;
 
-    @NotNull
-    @Column(name="password_hash")
+    @Column(nullable = false,name = "password_hash")
     private String passwordHash;
 
+    @Column(nullable = false, name = "user_id")
+    private String userId;
 
+    //testing purposes
     public User( String email, String passwordHash){
         this.email = email;
         this.passwordHash = passwordHash;
+    }
+    public User( String email, String passwordHash, String userId){
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.userId=userId;
     }
 
 }

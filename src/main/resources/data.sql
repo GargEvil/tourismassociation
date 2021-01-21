@@ -3,7 +3,8 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE IF NOT EXISTS user(
                      id INT AUTO_INCREMENT PRIMARY KEY,
                      email VARCHAR(128) NOT NULL,
-                     password_hash VARCHAR(256) NOT NULL
+                     password_hash VARCHAR(256) NOT NULL,
+                     user_id VARCHAR(256) NOT NULL
 );
 
 DROP TABLE IF EXISTS municipality;
@@ -85,9 +86,9 @@ ALTER TABLE rating
  */
 
 
-INSERT INTO user(email,password_hash) VALUES
-( 'mahir@gmail.com', 'uhuh4848482' ),
-( 'adem@gmail.com', 'jgjgjs382839');
+INSERT INTO user(email,password_hash, user_id) VALUES
+( 'mahir@gmail.com', 'uhuh4848482','327382' ),
+( 'adem@gmail.com', 'jgjgjs382839','392320');
 
 INSERT INTO significance(id, grade) VALUES
 ( 1, 'Znamenito' ),

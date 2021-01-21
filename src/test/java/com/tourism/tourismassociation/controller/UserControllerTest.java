@@ -50,8 +50,8 @@ public class UserControllerTest {
      void getAllUsers() throws Exception {
         //arrange
         List<User> userList = new ArrayList<>();
-        userList.add(new User(1,"mahir@gmail.com","zhzhzh42732"));
-        userList.add(new User(2,"armin@gmail.com","ksksk42732"));
+        userList.add(new User(1,"mahir@gmail.com","zhzhzh42732","32522"));
+        userList.add(new User(2,"armin@gmail.com","ksksk42732","522523"));
         when(userService.findAll()).thenReturn(userList);
 
         //act
@@ -67,7 +67,7 @@ public class UserControllerTest {
     @DisplayName("GET /user/{id} - Found")
     void successfullyFoundUserById() throws Exception {
         //arrange
-        User mockUser = new User(3, "haris.silajdzic@gmail.com", "ztztz493839");
+        User mockUser = new User(3, "haris.silajdzic@gmail.com", "ztztz493839","2522341");
         doReturn(Optional.of(mockUser)).when(userService).findById(3L);
 
         //act

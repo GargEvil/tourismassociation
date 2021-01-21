@@ -45,7 +45,7 @@ public class UserServiceTest {
     @DisplayName("Test findById - Success")
     void getById(){
         //arrange
-        User mockUser = new User (3L,"muahmed@gmail.com", "rjfifjs483937");
+        User mockUser = new User (3L,"muahmed@gmail.com", "rjfifjs483937", "325232");
         doReturn(Optional.of(mockUser)).when(userRepository).findById(3L);
 
         //act
@@ -59,7 +59,7 @@ public class UserServiceTest {
     @DisplayName("Test SaveUser - Success")
     void saveUser(){
         //arrange
-        User mockUser = new User(1,"mahir@gmail.com", "jgjgjg3592");
+        User mockUser = new User(1,"mahir@gmail.com", "jgjgjg3592","25232");
         doReturn(mockUser).when(userRepository).save(any());
 
         //act
