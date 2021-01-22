@@ -23,4 +23,7 @@ public class TourismAssociationApplication {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public SpringApplicationContext springApplicationContext(){ return new SpringApplicationContext(); }
+
 }

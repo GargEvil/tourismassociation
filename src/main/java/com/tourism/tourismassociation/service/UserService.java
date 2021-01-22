@@ -32,4 +32,6 @@ public interface UserService extends UserDetailsService {
      * @return          Requested User if found
      */
      Optional<User> findById(Long id);
+
+     UserDTO getUser(String email);
 }

@@ -23,8 +23,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         //Here I should let only authorized users to modify landmark
-
+        //currently disabling it so i can test it
         http.csrf().disable();
+
+        //Testing user authentication
+        /*
+        http.csrf().disable().authorizeRequests()
+                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
+                .permitAll()
+                .anyRequest().authenticated().and().addFilter(new AuthenticationFilter(authenticationManager()));
+        */
+
 
         //Disabling security for h2-console
         http.headers().frameOptions().disable();
