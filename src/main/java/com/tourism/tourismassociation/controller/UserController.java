@@ -40,7 +40,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<UserResponseModel> CreateUser(@RequestBody UserRequestModel userRequest)
+    ResponseEntity<UserResponseModel> createUser(@RequestBody UserRequestModel userRequest)
     {
         UserResponseModel returnedUser = new UserResponseModel();
 
