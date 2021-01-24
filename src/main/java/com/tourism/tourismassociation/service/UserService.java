@@ -24,7 +24,12 @@ public interface UserService extends UserDetailsService {
      */
      User save(User user);
 
-
+    /**
+     * Create a User
+     *
+     * @param user      userDTO that should be mapped to userEntity
+     * @return          created user
+     */
      UserDTO createUser(UserDTO user);
     /**
      * Returns the user with specified id
@@ -33,5 +38,11 @@ public interface UserService extends UserDetailsService {
      */
      Optional<User> findById(Long id);
 
+    /**
+     * Returns the UserDTO with specified email
+     *
+     * @param email     EMAIL of the user to retrieve
+     * @return          Requested User
+     */
      UserDTO getUser(String email);
 }

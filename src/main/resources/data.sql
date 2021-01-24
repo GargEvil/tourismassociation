@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS municipality
 (
     id   INT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    countryId INT NULL
+    country_id INT NULL
 
 );
 
@@ -24,12 +24,12 @@ CREATE TABLE IF NOT EXISTS landmark(
                          name VARCHAR(50) NOT NULL,
                          description VARCHAR(MAX) NULL,
                      pictures VARBINARY NULL,
-                     geoLatitude DECIMAL NOT NULL,
-                     geoLongitude DECIMAL NOT NULL,
+                     geo_latitude DECIMAL NOT NULL,
+                     geo_longitude DECIMAL NOT NULL,
                      active BIT  NULL,
                      avgRating FLOAT NULL,
-                     municipalityId INT NULL,
-                     significanceId INT NULL
+                     municipality_id INT NULL,
+                     significance_id INT NULL
 );
 
 DROP TABLE IF EXISTS country;
@@ -62,15 +62,15 @@ CREATE TABLE IF NOT EXISTS rating(
   ADDING FOREIGN KEYS TO TABLES
  */
 ALTER TABLE municipality
-    ADD FOREIGN KEY (countryId)
+    ADD FOREIGN KEY (country_id)
         REFERENCES country(id);
 
 ALTER TABLE landmark
-    ADD FOREIGN KEY (municipalityId)
+    ADD FOREIGN KEY (municipality_id)
         REFERENCES municipality(id);
 
 ALTER TABLE landmark
-    ADD FOREIGN KEY (significanceId)
+    ADD FOREIGN KEY (significance_id)
         REFERENCES significance(id);
 
 ALTER TABLE rating
@@ -109,10 +109,11 @@ INSERT INTO municipality VALUES ( 1, 'Sarajevo', 1 ),
                                 (5, 'Ljubljana', 3);
 
 INSERT INTO landmark(name, description,
-                     geoLatitude, geoLongitude,
-                     active, municipalityId, significanceId)
+                     geo_latitude, geo_longitude,
+                     active, municipality_id, significance_id)
 VALUES
 ('Bascarsija', 'Prelijep dio starog grada',
  43.8598, 18.4313, 1, 1, 3),
 ('Skadarlija', 'Prelijep dio starog grada',
  43.8598, 18.4313, 1, 2, 2);
+

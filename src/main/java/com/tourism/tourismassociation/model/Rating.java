@@ -12,11 +12,11 @@ public class Rating {
     private String comment;
 
     @ManyToOne
-    @JoinColumn(name = "landmark_id")
+    @JoinColumn(columnDefinition = "landmark_id")
     private Landmark landmark;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(columnDefinition = "user_id")
     private User user;
 
 

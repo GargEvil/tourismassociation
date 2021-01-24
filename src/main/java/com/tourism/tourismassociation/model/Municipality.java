@@ -1,10 +1,16 @@
 package com.tourism.tourismassociation.model;
 
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Getter
+@Setter
 @Entity
 public class Municipality {
 
@@ -14,11 +20,7 @@ public class Municipality {
     private String name;
 
     @ManyToOne
-    @JoinColumn(columnDefinition = "id")
-    private Country countryId;
-
-    @OneToMany(mappedBy = "id",
-    cascade = CascadeType.ALL)
-    Set<Landmark> landmarkSet = new HashSet<Landmark>();
+    @JoinColumn(name = "country_id")
+    private Country country;
 
 }

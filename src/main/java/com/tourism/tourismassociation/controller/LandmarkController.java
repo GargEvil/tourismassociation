@@ -1,5 +1,6 @@
 package com.tourism.tourismassociation.controller;
 
+import com.tourism.tourismassociation.DTO.LandmarkDTO;
 import com.tourism.tourismassociation.model.Landmark;
 import com.tourism.tourismassociation.service.LandmarkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,10 @@ public class LandmarkController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<Landmark> createLandmark(@RequestBody Landmark landmark)
+    ResponseEntity<LandmarkDTO> createLandmark(@RequestBody LandmarkDTO landmarkDTO)
     {
-        return new ResponseEntity<>(landmarkService.save(landmark), HttpStatus.CREATED);
+
+        return new ResponseEntity<>(landmarkService.createLandmark(landmarkDTO), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.PUT)

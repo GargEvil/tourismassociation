@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,7 +15,7 @@ import java.util.List;
 public class Landmark {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
@@ -25,24 +24,25 @@ public class Landmark {
 
     private byte[] pictures;
 
+    @Column(name= "geo_latitude")
     private double geoLatitude;
 
+    @Column(name= "geo_longitude")
     private double geoLongitude;
 
     @ManyToOne
-    @JoinColumn(columnDefinition = "id")
-    private Municipality municipalityId;
+    @JoinColumn(name = "municipality_id")
+    private Municipality municipality;
 
     private boolean active;
 
+    @Transient
     private float avgRating;
 
     @ManyToOne
-    @JoinColumn(columnDefinition = "id")
-    private Significance significanceId;
+    @JoinColumn(name = "significance_id")
+    private Significance significance;
 
-    @OneToMany(fetch =FetchType.LAZY,mappedBy = "id")
-    private List<Rating> ratings;
 
     //Constructors made for testing purposes
     public Landmark(int id, String name, double geoLatitude, double geoLongitude, boolean active) {

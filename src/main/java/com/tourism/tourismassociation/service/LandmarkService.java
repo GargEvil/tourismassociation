@@ -1,5 +1,6 @@
 package com.tourism.tourismassociation.service;
 
+import com.tourism.tourismassociation.DTO.LandmarkDTO;
 import com.tourism.tourismassociation.model.Landmark;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface LandmarkService {
     boolean update(Landmark landmark);
 
     boolean delete(Long id);
+
+    LandmarkDTO createLandmark(LandmarkDTO landmarkDTO);
 }
