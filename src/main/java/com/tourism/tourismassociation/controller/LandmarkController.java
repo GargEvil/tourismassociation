@@ -21,6 +21,8 @@ public class LandmarkController {
     @RequestMapping(method = RequestMethod.GET)
     ResponseEntity<List<Landmark>> getAllLandmarks() {
 
+        //When I create UI for application this should be LandmarkEntity -> LandmarkResponseModel
+
         return new ResponseEntity<>(landmarkService.findAll(), HttpStatus.OK);
     }
 
@@ -41,25 +43,11 @@ public class LandmarkController {
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.PUT)
-    ResponseEntity<?> updateLandmark(@RequestBody Landmark landmark,
+    ResponseEntity<?> updateLandmark(@RequestBody LandmarkDTO landmark,
                                     @PathVariable Long id){
 
-        //Get the existing landmark
-        Optional<Landmark> existingLandmark = landmarkService.findById(id);
+       return new ResponseEntity<>(landmarkService.updateLandmark(landmark, id), HttpStatus.OK);
 
-        return existingLandmark.map(l ->{
-            l.setName(landmark.getName());
-            l.setGeoLongitude(landmark.getGeoLongitude());
-            l.setGeoLatitude(landmark.getGeoLatitude());
-            l.setActive(landmark.isActive());
-
-            if(landmarkService.update(l)){
-                return ResponseEntity.ok().body(l);
-            }
-            else{
-                return ResponseEntity.notFound().build();
-            }
-        }).orElse(ResponseEntity.notFound().build());
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.DELETE)

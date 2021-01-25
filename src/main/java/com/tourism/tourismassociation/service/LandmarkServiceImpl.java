@@ -5,6 +5,7 @@ import com.tourism.tourismassociation.model.Landmark;
 import com.tourism.tourismassociation.repository.LandmarkRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,9 +29,31 @@ public class LandmarkServiceImpl implements LandmarkService {
         return landmarkRepository.save(landmark);
     }
 
-    public boolean update(Landmark landmark) {
-        return false;
+    @Override
+    public LandmarkDTO updateLandmark(LandmarkDTO landmark, Long id) {
+
+        Landmark landmarkEntity = landmarkRepository.findById(id).orElse(null);
+
+        if(landmarkEntity == null)
+            throw new UsernameNotFoundException("Landmark with this id not found");
+
+
+        //findById does not return id of landmark, instead i set it manually
+        ModelMapper modelMapper = new ModelMapper();
+        landmarkEntity = modelMapper.map(landmark, Landmark.class);
+        landmarkEntity.setId(id);
+        
+
+        landmarkRepository.save(landmarkEntity);
+
+        LandmarkDTO returnValue = new LandmarkDTO();
+
+        returnValue = modelMapper.map(landmarkEntity, LandmarkDTO.class);
+
+        return returnValue;
+
     }
+
 
     public boolean delete(Long id) {
         return false;
