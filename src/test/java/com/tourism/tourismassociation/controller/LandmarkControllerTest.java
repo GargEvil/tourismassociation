@@ -1,6 +1,7 @@
 package com.tourism.tourismassociation.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tourism.tourismassociation.DTO.LandmarkDTO;
 import com.tourism.tourismassociation.model.Landmark;
 import com.tourism.tourismassociation.service.LandmarkService;
 import org.junit.jupiter.api.DisplayName;
@@ -95,10 +96,11 @@ public class LandmarkControllerTest {
     @DisplayName("POST /landmarks - CREATED")
     void successfullyCreateLandmark() throws Exception {
         //arrange - Eventually should create LandmarkDTO and map it to LandmarkEntity
-        Landmark mockLandmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
-        when(landmarkService.save(any(Landmark.class))).thenReturn(mockLandmark);
+
+        LandmarkDTO landmarkDTO = new LandmarkDTO("Bascarsija","Prelijep dio starog grada", 32.2313, 12.4232, true );
+        when(landmarkService.createLandmark(any(LandmarkDTO.class))).thenReturn(landmarkDTO);
         ObjectMapper objectMapper = new ObjectMapper();
-        String createLandmarkJSON = objectMapper.writeValueAsString(mockLandmark);
+        String createLandmarkJSON = objectMapper.writeValueAsString(landmarkDTO);
 
         //act
         ResultActions result = mockMvc.perform(post("/landmarks")
@@ -107,11 +109,11 @@ public class LandmarkControllerTest {
 
         //assert
         result.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id",is(1)))
                 .andExpect(jsonPath("$.name",is("Bascarsija")))
-                .andExpect(jsonPath("$.geoLatitude",is(43.8598)))
-                .andExpect(jsonPath("$.geoLongitude",is(18.4313)))
-                .andExpect(jsonPath("$.active",is(false)));
+                .andExpect(jsonPath("$.description",is("Prelijep dio starog grada")))
+                .andExpect(jsonPath("$.geoLatitude",is(32.2313)))
+                .andExpect(jsonPath("$.geoLongitude",is(12.4232)))
+                .andExpect(jsonPath("$.active",is(true)));
 
 
     }
