@@ -42,15 +42,10 @@ public class LandmarkServiceImpl implements LandmarkService {
         ModelMapper modelMapper = new ModelMapper();
         landmarkEntity = modelMapper.map(landmark, Landmark.class);
         landmarkEntity.setId(id);
-        
 
         landmarkRepository.save(landmarkEntity);
 
-        LandmarkDTO returnValue = new LandmarkDTO();
-
-        returnValue = modelMapper.map(landmarkEntity, LandmarkDTO.class);
-
-        return returnValue;
+        return modelMapper.map(landmarkEntity, LandmarkDTO.class);
 
     }
 
@@ -66,8 +61,7 @@ public class LandmarkServiceImpl implements LandmarkService {
         ModelMapper modelMapper = new ModelMapper();
         Landmark landmarkEntity = modelMapper.map(landmarkDTO, Landmark.class);
 
-        Landmark storedLandmark = landmarkRepository.save(landmarkEntity);
-
+        landmarkRepository.save(landmarkEntity);
 
         return modelMapper.map(landmarkEntity, LandmarkDTO.class);
     }

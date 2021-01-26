@@ -22,8 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -162,6 +161,43 @@ public class LandmarkServiceTest {
         verify(landmarkRepository, times(1)).save(any(Landmark.class));
 
 
+    }
+
+    @Test
+    @DisplayName("Test updateLandmark - SUCCESS")
+    void updateLandmarkSuccessTest(){
+
+        when(landmarkRepository.save(any(Landmark.class))).thenReturn(landmarkEntity);
+        when(landmarkRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(landmarkEntity));
+
+        LandmarkDTO landmarkDTO = new LandmarkDTO();
+        landmarkDTO.setName("Skadarlija");
+        landmarkDTO.setDescription("Stari dio Beograda");
+        landmarkDTO.setGeoLatitude(31.121);
+        landmarkDTO.setGeoLongitude(12.212);
+
+        LandmarkDTO storedLandmark = landmarkService.updateLandmark(landmarkDTO, landmarkEntity.getId());
+
+
+        assertNotNull(storedLandmark);
+        assertNotEquals(landmarkEntity.getDescription(), storedLandmark.getDescription());
+        assertNotEquals(landmarkEntity.getGeoLatitude(), storedLandmark.getGeoLatitude());
+        assertNotEquals(landmarkEntity.getGeoLongitude(), storedLandmark.getGeoLongitude());
+        assertNotEquals(landmarkEntity.getName(), storedLandmark.getName());
+
+    }
+
+    @Test
+    @DisplayName("Test deleteLandmark - SUCCESS")
+    void deleteLandmarkSuccessTest(){
+
+        when(landmarkRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(landmarkEntity));
+
+        assertNotNull(landmarkEntity);
+
+        landmarkService.delete(landmarkEntity.getId());
+
+        assertNull(landmarkEntity);
     }
 
     private MunicipalityDTO getMunicipalityDTO(){
