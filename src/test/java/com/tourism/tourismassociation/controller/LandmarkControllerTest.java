@@ -123,9 +123,10 @@ public class LandmarkControllerTest {
     void landmarkPutSuccess() throws Exception {
         //arrange
         Landmark mockLandmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
-        Landmark putLandmark = new Landmark("Skadarlija", 55.231, 15.531, true);
+        LandmarkDTO putLandmark = new LandmarkDTO("Skadarlija","sadadna", 55.231, 15.531, true);
         doReturn(Optional.of(mockLandmark)).when(landmarkService).findById(1L);
-        doReturn(true).when(landmarkService).update(any());
+        doReturn(putLandmark).when(landmarkService).updateLandmark(any(),any());
+
 
         //act
         mockMvc.perform(put("/landmarks/{id}",1)
@@ -136,7 +137,7 @@ public class LandmarkControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 
-                .andExpect(jsonPath("$.id", is(1)))
+
                 .andExpect(jsonPath("$.name", is("Skadarlija")))
                 .andExpect(jsonPath("$.geoLatitude", is(55.231)))
                 .andExpect(jsonPath("$.geoLongitude", is(15.531)))
@@ -147,21 +148,6 @@ public class LandmarkControllerTest {
 
     }
 
-    @Test
-    @DisplayName("/PUT /landmarks/{id} - NOT FOUND")
-    void landmarkUpdateNotFound() throws Exception {
-        //arrange
-        Landmark updateLandmark = new Landmark(2,"Bascarsija",43.8598,18.4313, false);
-        doReturn(Optional.empty()).when(landmarkService).findById(1L);
-
-        //act
-        mockMvc.perform(put("/landmarks/{id}",1)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(updateLandmark)))
-
-                //assert
-                .andExpect(status().isNotFound());
-    }
 
     @Test
     @DisplayName("DELETE /landmarks/{id} - SUCCESS")
