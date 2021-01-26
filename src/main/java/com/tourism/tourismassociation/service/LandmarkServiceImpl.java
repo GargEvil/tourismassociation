@@ -25,7 +25,7 @@ public class LandmarkServiceImpl implements LandmarkService {
         return landmarkRepository.findById(id);
     }
 
-    public Landmark save(Landmark landmark) {
+    public Landmark saveLandmark(Landmark landmark) {
         return landmarkRepository.save(landmark);
     }
 
@@ -50,7 +50,7 @@ public class LandmarkServiceImpl implements LandmarkService {
     }
 
 
-    public boolean delete(Long id) {
+    public boolean deleteLandmark(Long id) {
 
         Landmark landmarkEntity = landmarkRepository.findById(id).orElse(null);
 

@@ -39,6 +39,8 @@ public class LandmarkControllerTest {
     @MockBean
     private LandmarkService landmarkService;
 
+
+
     @Test
     @DisplayName("GET /landmarks - Found")
     void getAllLandmarks() throws Exception {
@@ -155,7 +157,7 @@ public class LandmarkControllerTest {
         //arrange
         Landmark landmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
         doReturn(Optional.of(landmark)).when(landmarkService).findById(1L);
-        doReturn(true).when(landmarkService).delete(1L);
+        doReturn(true).when(landmarkService).deleteLandmark(1L);
 
         //act
         mockMvc.perform(delete("/landmarks/{id}",1))
@@ -182,7 +184,7 @@ public class LandmarkControllerTest {
         //arrange
         Landmark landmark = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
         doReturn(Optional.of(landmark)).when(landmarkService).findById(1L);
-        doReturn(false).when(landmarkService).delete(1L);
+        doReturn(false).when(landmarkService).deleteLandmark(1L);
 
         //act
         mockMvc.perform(delete("/landmarks/{id}", 1))

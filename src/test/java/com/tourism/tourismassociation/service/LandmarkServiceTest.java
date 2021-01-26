@@ -122,7 +122,7 @@ public class LandmarkServiceTest {
         doReturn(mockLandmark).when(landmarkRepository).save(any());
 
         //act
-        Landmark returnedLandmark = landmarkService.save(mockLandmark);
+        Landmark returnedLandmark = landmarkService.saveLandmark(mockLandmark);
 
         //assert
         assertNotNull(returnedLandmark, "Saved landmark should not be null");
@@ -195,7 +195,7 @@ public class LandmarkServiceTest {
 
         assertNotNull(landmarkEntity);
 
-        assertTrue(landmarkService.delete(landmarkEntity.getId()));
+        assertTrue(landmarkService.deleteLandmark(landmarkEntity.getId()));
 
     }
 

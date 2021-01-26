@@ -56,7 +56,7 @@ public class LandmarkController {
         Optional<Landmark> existingLandmark = landmarkService.findById(id);
 
         return existingLandmark.map(l ->{
-            if(landmarkService.delete(l.getId())){
+            if(landmarkService.deleteLandmark(l.getId())){
                 return ResponseEntity.ok().build();
             }else{
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -63,7 +63,7 @@ public class UserServiceTest {
         doReturn(mockUser).when(userRepository).save(any());
 
         //act
-        User returnedUser = userService.save(mockUser);
+        User returnedUser = userService.saveUser(mockUser);
 
         //assert
         Assertions.assertNotNull(returnedUser, "Saved user should not be null");

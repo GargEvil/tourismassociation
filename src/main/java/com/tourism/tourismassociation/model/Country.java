@@ -15,12 +15,5 @@ public class Country {
     private long id;
 
     private String name;
-/*
-    @OneToMany(mappedBy = "country",
-    cascade = CascadeType.ALL)
-    Set<Municipality> municipalitySet =
-            new HashSet<Municipality>();
-
- */
 
 }

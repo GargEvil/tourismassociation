@@ -2,6 +2,7 @@ package com.tourism.tourismassociation.repository;
 
 import com.tourism.tourismassociation.model.User;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,16 @@ public class UserRepositoryTest {
     UserRepository userRepository;
 
     @Test
-    public void getALlFromDB(){
+    @DisplayName("Test getAllFromDB - SUCCESS")
+     void getAllFromDB(){
         List<User> users = userRepository.findAll();
 
         assertEquals(2, users.size(), "We should have 2 users in database.");
     }
 
     @Test
-    public void getUserByIdFromDB(){
+    @DisplayName("Test getUserByIdFromDB - SUCCESS")
+     void getUserByIdFromDB(){
         //Find user with id 1
         Optional<User> user = userRepository.findById(1L);
 
@@ -49,7 +52,8 @@ public class UserRepositoryTest {
 
     }
     @Test
-    public void createUserAndSaveToDB(){
+    @DisplayName("Test createUserAndSaveToDB - SUCCESS")
+     void createUserAndSaveToDB(){
     // Creating User
         User user = new User("dzenita@hotmail.com", "vav35avs23s", "325232");
         User savedUser = userRepository.save(user);

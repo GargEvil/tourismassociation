@@ -22,7 +22,7 @@ public interface UserService extends UserDetailsService {
      * @param user   The user to save to the database
      * @return       The saved user.
      */
-     User save(User user);
+     User saveUser(User user);
 
     /**
      * Create a User

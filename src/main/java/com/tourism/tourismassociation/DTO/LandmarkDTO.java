@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LandmarkDTO {
-// Try setting municipality and significance as long, then in LandmarkService use BeanUtils > ModelMapper
 
     private String name;
 
