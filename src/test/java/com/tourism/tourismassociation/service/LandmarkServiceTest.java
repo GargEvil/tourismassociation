@@ -195,9 +195,8 @@ public class LandmarkServiceTest {
 
         assertNotNull(landmarkEntity);
 
-        landmarkService.delete(landmarkEntity.getId());
+        assertTrue(landmarkService.delete(landmarkEntity.getId()));
 
-        assertNull(landmarkEntity);
     }
 
     private MunicipalityDTO getMunicipalityDTO(){

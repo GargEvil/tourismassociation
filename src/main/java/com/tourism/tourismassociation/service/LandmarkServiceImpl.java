@@ -51,7 +51,17 @@ public class LandmarkServiceImpl implements LandmarkService {
 
 
     public boolean delete(Long id) {
-        return false;
+
+        Landmark landmarkEntity = landmarkRepository.findById(id).orElse(null);
+
+        if(landmarkEntity == null)
+            throw new UsernameNotFoundException("Landmark with this id not found");
+
+
+        landmarkRepository.delete(landmarkEntity);
+
+        return true;
+
     }
 
     @Override
