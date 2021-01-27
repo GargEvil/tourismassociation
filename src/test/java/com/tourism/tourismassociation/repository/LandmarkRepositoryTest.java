@@ -70,4 +70,20 @@ public class LandmarkRepositoryTest {
 
         assertEquals(1, landmarkRepository.findAll().size());
     }
+
+
+    @Test
+    @DisplayName("Test getFromDBByLandmarkName ")
+    void getLandmarkByName(){
+
+        String name = "Bascarsija";
+
+        Landmark landmarkFromDB = landmarkRepository.findByName(name);
+
+        assertNotNull(landmarkFromDB);
+
+        assertEquals(name, landmarkFromDB.getName());
+
+    }
+
 }
