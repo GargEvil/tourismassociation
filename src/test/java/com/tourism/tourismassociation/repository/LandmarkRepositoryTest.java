@@ -73,7 +73,7 @@ public class LandmarkRepositoryTest {
 
 
     @Test
-    @DisplayName("Test getFromDBByLandmarkName ")
+    @DisplayName("Test getFromDBByLandmarkName- SUCCESS ")
     void getLandmarkByName(){
 
         String name = "Bascarsija";
@@ -83,6 +83,21 @@ public class LandmarkRepositoryTest {
         assertNotNull(landmarkFromDB);
 
         assertEquals(name, landmarkFromDB.getName());
+
+    }
+
+
+    @Test
+    @DisplayName(" Test getListLandmarksFromKeyword - SUCCESS")
+    void getLandmarkListByKeyword(){
+
+        String keyword = "adarlija";
+
+        List<Landmark> landmarksList = landmarkRepository.findLandmarksByKeyword(keyword);
+
+        assertNotNull(landmarksList);
+
+
 
     }
 
