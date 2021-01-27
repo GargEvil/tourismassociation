@@ -67,6 +67,8 @@ public class LandmarkServiceImpl implements LandmarkService {
     @Override
     public LandmarkDTO createLandmark(LandmarkDTO landmarkDTO) {
 
+        if(landmarkRepository.findByName(landmarkDTO.getName()) != null)
+            throw new RuntimeException("Landmark with this name already exists");
 
         ModelMapper modelMapper = new ModelMapper();
         Landmark landmarkEntity = modelMapper.map(landmarkDTO, Landmark.class);

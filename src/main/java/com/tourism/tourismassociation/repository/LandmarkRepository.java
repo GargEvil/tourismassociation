@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
+
+    Landmark findByName(String name);
 }
