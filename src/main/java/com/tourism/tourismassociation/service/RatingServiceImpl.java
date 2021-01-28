@@ -13,4 +13,9 @@ public class RatingServiceImpl implements RatingService{
     public List<RatingDTO> findAll() {
         return null;
     }
+
+    @Override
+    public RatingDTO createRating(RatingDTO ratingDTO) {
+        return null;
+    }
 }
