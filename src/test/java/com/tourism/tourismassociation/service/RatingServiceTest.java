@@ -1,9 +1,11 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.DTO.RatingDTO;
+import com.tourism.tourismassociation.model.Rating;
 import com.tourism.tourismassociation.repository.RatingRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest
@@ -39,4 +43,21 @@ public class RatingServiceTest {
         assertEquals(2, ratingList.size(), "There should be 2 rating in list");
     }
 
+    @Test
+    @DisplayName("Test createRating - SUCCESS")
+    void createRatingSuccessTest(){
+        //arrange
+        RatingDTO mockRating = new RatingDTO(5, 1L, 1L, "ssss");
+        doReturn(mockRating).when(ratingRepository).save(any());
+
+        //act
+        ModelMapper modelMapper = new ModelMapper();
+        Rating returnedRating = modelMapper.map(ratingService.createRating(mockRating), Rating.class);
+
+        //assert
+        assertNotNull(returnedRating, "Returned rating should not be null");
+        assertEquals(returnedRating.getGrade(), mockRating.getGrade());
+        assertEquals(returnedRating.getLandmark().getId(), mockRating.getLandmarkId());
+        assertEquals(returnedRating.getUser().getId(), mockRating.getUserId());
+    }
 }
