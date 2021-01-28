@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class RatingServiceImpl implements RatingService{
 
-    @Autowired
+    @Autowired(required = false)
     RatingRepository ratingRepository;
 
 
@@ -19,6 +19,8 @@ public class RatingServiceImpl implements RatingService{
     public List<RatingDTO> findAll() {
         ModelMapper modelMapper = new ModelMapper();
 
+        //it's returning List<Rating> instead of List<RatingDTO>
+        //remember to refactor
         return modelMapper.map(ratingRepository.findAll(), List.class);
     }
 

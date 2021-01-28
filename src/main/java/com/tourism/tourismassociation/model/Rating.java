@@ -15,6 +15,8 @@ public class Rating {
     private long id;
 
 
+    private int grade;
+
     private String comment;
 
     @ManyToOne

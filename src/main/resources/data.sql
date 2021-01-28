@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS user;
 
 CREATE TABLE IF NOT EXISTS user(
-                     id INT AUTO_INCREMENT PRIMARY KEY,
-                     email VARCHAR(128) NOT NULL,
-                     password_hash VARCHAR(256) NOT NULL,
-                     user_id VARCHAR(256) NOT NULL
+                                   id INT AUTO_INCREMENT PRIMARY KEY,
+                                   email VARCHAR(128) NOT NULL,
+                                   password_hash VARCHAR(256) NOT NULL,
+                                   user_id VARCHAR(256) NOT NULL
 );
 
 DROP TABLE IF EXISTS municipality;
@@ -20,16 +20,16 @@ CREATE TABLE IF NOT EXISTS municipality
 DROP TABLE IF EXISTS landmark;
 
 CREATE TABLE IF NOT EXISTS landmark(
-                         id INT AUTO_INCREMENT PRIMARY KEY,
-                         name VARCHAR(50) NOT NULL,
-                         description VARCHAR(MAX) NULL,
-                     pictures VARBINARY NULL,
-                     geo_latitude DECIMAL NOT NULL,
-                     geo_longitude DECIMAL NOT NULL,
-                     active BIT  NULL,
-                     avgRating FLOAT NULL,
-                     municipality_id INT NULL,
-                     significance_id INT NULL
+                                       id INT AUTO_INCREMENT PRIMARY KEY,
+                                       name VARCHAR(50) NOT NULL,
+                                       description VARCHAR(MAX) NULL,
+                                       pictures VARBINARY NULL,
+                                       geo_latitude DECIMAL NOT NULL,
+                                       geo_longitude DECIMAL NOT NULL,
+                                       active BIT  NULL,
+                                       avgRating FLOAT NULL,
+                                       municipality_id INT NULL,
+                                       significance_id INT NULL
 );
 
 DROP TABLE IF EXISTS country;
@@ -44,17 +44,18 @@ CREATE TABLE IF NOT EXISTS country
 DROP TABLE IF EXISTS significance;
 
 CREATE TABLE IF NOT EXISTS significance(
-    id INT PRIMARY KEY,
-    grade VARCHAR(40)
+                                           id INT PRIMARY KEY,
+                                           grade VARCHAR(40)
 );
 
 DROP TABLE IF EXISTS rating;
 
 CREATE TABLE IF NOT EXISTS rating(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    landmark INT NOT NULL,
-    user INT NULL,
-    comment VARCHAR(MAX) NULL
+                                     id INT PRIMARY KEY AUTO_INCREMENT,
+                                     grade INT NOT NULL,
+                                     landmark_id INT NOT NULL,
+                                     user_id INT NULL,
+                                     comment VARCHAR(MAX) NULL
 );
 
 
@@ -74,11 +75,11 @@ ALTER TABLE landmark
         REFERENCES significance(id);
 
 ALTER TABLE rating
-    ADD FOREIGN KEY (landmark)
+    ADD FOREIGN KEY (landmark_id)
         REFERENCES landmark(id);
 
 ALTER TABLE rating
-    ADD FOREIGN KEY (user)
+    ADD FOREIGN KEY (user_id)
         REFERENCES user(id);
 
 /**
@@ -117,3 +118,5 @@ VALUES
 ('Skadarlija', 'Prelijep dio starog grada',
  43.8598, 18.4313, 1, 2, 2);
 
+INSERT INTO  rating(grade,landmark_id, user_id, comment) VALUES (5, 1, 1, 'sadsa'  ),
+                                                          (4, 2,NULL, 'sjasna');

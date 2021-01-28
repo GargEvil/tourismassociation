@@ -42,8 +42,8 @@ public class RatingControllerTest {
     void getAllRatings() throws Exception {
         //arrange
         List<RatingDTO> ratingList = new ArrayList<>();
-        ratingList.add(new RatingDTO(1L, 1L, "Prelijep osjecaj je biti na ovoj lokaciji u centru Sarajeva."));
-        ratingList.add(new RatingDTO(1L, null, "Na ljeto sam posjetio Sarajevo, i nezaobilaznu Bascarsiju, uzivao sam svaki trenutak."));
+        ratingList.add(new RatingDTO(5,1L, 1L, "Prelijep osjecaj je biti na ovoj lokaciji u centru Sarajeva."));
+        ratingList.add(new RatingDTO(3,1L, null, "Na ljeto sam posjetio Sarajevo, i nezaobilaznu Bascarsiju, uzivao sam svaki trenutak."));
         when(ratingService.findAll()).thenReturn(ratingList);
 
         //act
@@ -59,7 +59,7 @@ public class RatingControllerTest {
     @DisplayName("POST /ratings - SUCCESS")
     void successfullyCreateRating() throws Exception {
         //arrange
-        RatingDTO ratingDTO = new RatingDTO(1L, 1L, "Prelijep osjecaj je biti na ovoj lokaciji u centru Sarajeva.");
+        RatingDTO ratingDTO = new RatingDTO(2,1L, 1L, "Prelijep osjecaj je biti na ovoj lokaciji u centru Sarajeva.");
         when(ratingService.createRating(any(RatingDTO.class))).thenReturn(ratingDTO);
         ObjectMapper objectMapper = new ObjectMapper();
         String createRatingJSON = objectMapper.writeValueAsString(ratingDTO);

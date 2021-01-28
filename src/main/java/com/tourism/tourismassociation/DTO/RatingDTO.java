@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class RatingDTO {
 
+    private int grade;
+
     private Long landmarkId;
 
     private Long userId;

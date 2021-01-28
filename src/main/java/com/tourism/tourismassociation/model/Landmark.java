@@ -1,11 +1,13 @@
 package com.tourism.tourismassociation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,6 +37,11 @@ public class Landmark {
     private Municipality municipality;
 
     private boolean active;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "landmark",
+    cascade = CascadeType.ALL)
+    private List<Rating> ratings;
 
     @Transient
     private float avgRating;

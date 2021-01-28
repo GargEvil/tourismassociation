@@ -28,8 +28,8 @@ public class RatingServiceTest {
     @DisplayName("Test findAllRatings - SUCCESS")
     void getAllRatingsSuccessTest(){
         //arrange
-        RatingDTO mockRating1 = new RatingDTO(1L,1L,"safas");
-        RatingDTO mockRating2 = new RatingDTO(1L,null,"safas2");
+        RatingDTO mockRating1 = new RatingDTO(4,1L,1L,"safas");
+        RatingDTO mockRating2 = new RatingDTO(2,1L,null,"safas2");
         doReturn(Arrays.asList(mockRating1,mockRating2)).when(ratingRepository).findAll();
 
         //act
