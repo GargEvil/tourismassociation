@@ -71,8 +71,8 @@ public class RatingControllerTest {
 
         //assert
         result.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.landmarkId",is(ratingDTO.getLandmarkId())))
-                .andExpect(jsonPath("$.userId", is(ratingDTO.getUserId())))
+                .andExpect(jsonPath("$.landmarkId",is(1)))
+                .andExpect(jsonPath("$.userId", is(1)))
                 .andExpect(jsonPath("$.comment", is(ratingDTO.getComment())));
     }
 }
