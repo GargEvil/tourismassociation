@@ -9,14 +9,15 @@ public class Rating {
     @GeneratedValue
     private long id;
 
+
     private String comment;
 
     @ManyToOne
-    @JoinColumn(columnDefinition = "landmark_id")
+    @JoinColumn(name = "landmark_id")
     private Landmark landmark;
 
     @ManyToOne
-    @JoinColumn(columnDefinition = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
 
