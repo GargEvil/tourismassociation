@@ -26,6 +26,15 @@ public class RatingServiceImpl implements RatingService{
 
     @Override
     public RatingDTO createRating(RatingDTO ratingDTO) {
-        return null;
+
+        ratingRepository.insert(
+                ratingDTO.getComment(),
+                ratingDTO.getGrade(),
+                ratingDTO.getLandmarkId(),
+                ratingDTO.getUserId()
+        );
+
+        //if there was any problem sql would show an error
+        return ratingDTO;
     }
 }
