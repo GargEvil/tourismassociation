@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS landmark(
                                        geo_latitude DECIMAL NOT NULL,
                                        geo_longitude DECIMAL NOT NULL,
                                        active BIT  NULL,
-                                       avgRating FLOAT NULL,
+                                       avg_rating FLOAT DEFAULT(0) NULL ,
                                        municipality_id INT NULL,
                                        significance_id INT NULL
 );

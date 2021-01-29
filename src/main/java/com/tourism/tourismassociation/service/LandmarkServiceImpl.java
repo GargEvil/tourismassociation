@@ -78,5 +78,10 @@ public class LandmarkServiceImpl implements LandmarkService {
         return modelMapper.map(landmarkEntity, LandmarkDTO.class);
     }
 
+    @Override
+    public void updateAvgRating(float avgRating, Long landmarkId) {
+        landmarkRepository.update(avgRating, landmarkId);
+    }
+
 
 }

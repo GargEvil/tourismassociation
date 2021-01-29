@@ -55,4 +55,12 @@ public interface LandmarkService {
      * @return                  DTO of created landmark
      */
     LandmarkDTO createLandmark(LandmarkDTO landmarkDTO);
+
+    /**
+     * Updates avgRating everytime rating for that landmark is created
+     *
+     * @param avgRating         Calculated avgRating
+     * @param landmarkId        ID of the landmark rating is added
+     */
+    void updateAvgRating(float avgRating, Long landmarkId);
 }

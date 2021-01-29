@@ -1,6 +1,7 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.DTO.RatingDTO;
+import com.tourism.tourismassociation.model.Rating;
 import com.tourism.tourismassociation.repository.RatingRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class RatingServiceImpl implements RatingService{
 
     @Autowired(required = false)
     RatingRepository ratingRepository;
+
+    @Autowired
+    LandmarkService landmarkService;
 
 
     @Override
@@ -34,7 +38,17 @@ public class RatingServiceImpl implements RatingService{
                 ratingDTO.getUserId()
         );
 
-        //if there was any problem sql would show an error
+        // Calculating avgRating for landmark
+        List<Rating> ratingsForLandmark = ratingRepository.findByLandmarkId(ratingDTO.getLandmarkId());
+        int sum = 0;
+        for(int i = 0; i< ratingsForLandmark.size(); i++){
+            sum += ratingsForLandmark.get(i).getGrade();
+        }
+
+        float avgRating = (float) sum/ratingsForLandmark.size();
+        landmarkService.updateAvgRating(avgRating, ratingDTO.getLandmarkId());
+
+        //if there was any problem sql would throw an error
         return ratingDTO;
     }
 }

@@ -43,7 +43,7 @@ public class Landmark {
     cascade = CascadeType.ALL)
     private List<Rating> ratings;
 
-    @Transient
+    @Column(nullable = true, updatable = true)
     private float avgRating;
 
     @ManyToOne

@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @Repository
 public interface RatingRepository extends JpaRepository<Rating, Long> {
@@ -22,4 +23,5 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
             @Param("landmarkId") Long landmarkId,
             @Param("userId") Long userId);
 
+    ArrayList<Rating> findByLandmarkId(Long id);
 }
