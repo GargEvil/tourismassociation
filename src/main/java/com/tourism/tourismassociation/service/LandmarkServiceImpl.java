@@ -1,11 +1,12 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.DTO.LandmarkDTO;
+import com.tourism.tourismassociation.exceptions.LandmarkServiceException;
 import com.tourism.tourismassociation.model.Landmark;
 import com.tourism.tourismassociation.repository.LandmarkRepository;
+import com.tourism.tourismassociation.ui.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,11 +33,8 @@ public class LandmarkServiceImpl implements LandmarkService {
     @Override
     public LandmarkDTO updateLandmark(LandmarkDTO landmark, Long id) {
 
-        Landmark landmarkEntity = landmarkRepository.findById(id).orElse(null);
-
-        if(landmarkEntity == null)
-            throw new UsernameNotFoundException("Landmark with this id not found");
-
+        Landmark landmarkEntity = landmarkRepository.findById(id)
+                .orElseThrow(()-> new LandmarkServiceException(ErrorMessages.LANDMARK_NO_RECORD_FOUND.getErrorMessage()));
 
         //findById does not return id of landmark, instead i set it manually
         ModelMapper modelMapper = new ModelMapper();
@@ -52,10 +50,8 @@ public class LandmarkServiceImpl implements LandmarkService {
 
     public boolean deleteLandmark(Long id) {
 
-        Landmark landmarkEntity = landmarkRepository.findById(id).orElse(null);
-
-        if(landmarkEntity == null)
-            throw new UsernameNotFoundException("Landmark with this id not found");
+        Landmark landmarkEntity = landmarkRepository.findById(id)
+                .orElseThrow(()-> new LandmarkServiceException(ErrorMessages.LANDMARK_NO_RECORD_FOUND.getErrorMessage()));
 
 
         landmarkRepository.delete(landmarkEntity);
@@ -67,8 +63,11 @@ public class LandmarkServiceImpl implements LandmarkService {
     @Override
     public LandmarkDTO createLandmark(LandmarkDTO landmarkDTO) {
 
+        if(landmarkDTO.getName().isEmpty() || landmarkDTO.getGeoLatitude() == 0 || landmarkDTO.getGeoLongitude() ==0)
+            throw new LandmarkServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+
         if(landmarkRepository.findByName(landmarkDTO.getName()) != null)
-            throw new RuntimeException("Landmark with this name already exists");
+            throw new LandmarkServiceException(ErrorMessages.LANDMARK_RECORD_ALREADY_EXISTS.getErrorMessage());
 
         ModelMapper modelMapper = new ModelMapper();
         Landmark landmarkEntity = modelMapper.map(landmarkDTO, Landmark.class);

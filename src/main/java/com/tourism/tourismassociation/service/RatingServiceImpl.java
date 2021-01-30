@@ -1,8 +1,10 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.DTO.RatingDTO;
+import com.tourism.tourismassociation.exceptions.RatingServiceException;
 import com.tourism.tourismassociation.model.Rating;
 import com.tourism.tourismassociation.repository.RatingRepository;
+import com.tourism.tourismassociation.ui.response.ErrorMessages;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,9 @@ public class RatingServiceImpl implements RatingService{
 
     @Override
     public RatingDTO createRating(RatingDTO ratingDTO) {
+
+        if(ratingDTO.getLandmarkId() == 0 )
+            throw new RatingServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 
         ratingRepository.insert(
                 ratingDTO.getComment(),

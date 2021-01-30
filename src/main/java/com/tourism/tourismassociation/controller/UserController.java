@@ -1,9 +1,11 @@
 package com.tourism.tourismassociation.controller;
 
 import com.tourism.tourismassociation.DTO.UserDTO;
+import com.tourism.tourismassociation.exceptions.UserServiceException;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.service.UserService;
 import com.tourism.tourismassociation.ui.request.UserRequestModel;
+import com.tourism.tourismassociation.ui.response.ErrorMessages;
 import com.tourism.tourismassociation.ui.response.UserResponseModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,11 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<UserResponseModel> createUser(@RequestBody UserRequestModel userRequest)
-    {
+    ResponseEntity<UserResponseModel> createUser(@RequestBody UserRequestModel userRequest)  {
+
+        if(userRequest.getEmail().isEmpty() || userRequest.getPassword().isEmpty())
+            throw new UserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+
         UserResponseModel returnedUser = new UserResponseModel();
 
         UserDTO userDTO = new UserDTO();

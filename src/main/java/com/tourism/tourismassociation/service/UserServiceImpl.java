@@ -1,9 +1,11 @@
 package com.tourism.tourismassociation.service;
 
 import com.tourism.tourismassociation.DTO.UserDTO;
+import com.tourism.tourismassociation.exceptions.UserServiceException;
 import com.tourism.tourismassociation.helper.Utils;
 import com.tourism.tourismassociation.model.User;
 import com.tourism.tourismassociation.repository.UserRepository;
+import com.tourism.tourismassociation.ui.response.ErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO createUser(UserDTO user) {
 
         if(userRepository.findByEmail(user.getEmail()) != null)
-            throw new RuntimeException("User with this mail already exists");
+            throw new UserServiceException(ErrorMessages.MAIL_RECORD_ALREADY_EXISTS.getErrorMessage());
 
         User userEntity = new User();
 
@@ -71,7 +73,8 @@ public class UserServiceImpl implements UserService {
 
         User userEntity = userRepository.findByEmail(email);
 
-        if(userEntity == null) throw new UsernameNotFoundException(email);
+        if(userEntity == null)
+            throw new UserServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
 
         UserDTO returnValue = new UserDTO();

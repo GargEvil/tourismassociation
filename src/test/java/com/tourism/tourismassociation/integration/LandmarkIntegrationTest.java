@@ -78,6 +78,8 @@ public class LandmarkIntegrationTest {
 
     }
 
+
+
     @Test
     @DisplayName("PUT /landmarks/1 - SUCCESS")
     void updateLandmarkIT() throws Exception {
