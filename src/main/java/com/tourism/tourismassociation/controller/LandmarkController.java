@@ -35,6 +35,11 @@ public class LandmarkController {
                 .build());
     }
 
+    @RequestMapping(value = "/significance/{significanceId}", method = RequestMethod.GET)
+    ResponseEntity<List<Landmark>> getLandmarkBySignificanceId(@PathVariable("significanceId") Long significanceId){
+
+        return new ResponseEntity<>( landmarkService.findBySignificanceId(significanceId), HttpStatus.OK);
+    }
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<LandmarkDTO> createLandmark(@RequestBody LandmarkDTO landmarkDTO)
     {

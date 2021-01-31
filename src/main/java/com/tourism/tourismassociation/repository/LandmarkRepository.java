@@ -24,4 +24,7 @@ public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
             " WHERE l.id =:landmarkId",nativeQuery = true )
     void update(@Param("avgRating") float avgRating,
                 @Param("landmarkId") Long landmarkId);
+
+    @Query(value="SELECT * FROM Landmark l WHERE l.significance_id = :significanceId", nativeQuery = true)
+    List<Landmark> findBySignificance(@Param("significanceId") Long significanceId);
 }

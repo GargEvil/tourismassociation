@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,20 +60,6 @@ public class LandmarkIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 
                 .andExpect(jsonPath("$.name").value("Spanski Trg"));
-
-    }
-
-    @Test
-    @DisplayName(" POST /landmarks - Exception (same name)")
-    void createLandmarkITException() throws Exception {
-
-        LandmarkDTO createLandmark = new LandmarkDTO("Bascarsija", "Setaliste u centru Mostara", 31.3141, 19.376,true);
-
-        assertThatThrownBy(()->
-            mockMvc.perform(post("/landmarks")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(asJsonString(createLandmark)))
-        ).hasCause(new RuntimeException("Landmark with this name already exists"));
 
     }
 

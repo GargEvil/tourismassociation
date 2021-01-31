@@ -56,13 +56,12 @@ public class LandmarkServiceTest {
     @DisplayName("Test findAllLandmarks - SUCCESS")
     void getAllLandmarksSuccessTest(){
         //arrange
-        String keyword ="";
         Landmark mockLandmark1 = new Landmark(1,"Bascarsija",43.8598,18.4313, false);
         Landmark mockLandmark2 = new Landmark(2,"Skadarlija",43.8598,18.4313, true);
         doReturn(Arrays.asList(mockLandmark1,mockLandmark2)).when(landmarkRepository).findAll();
 
         //act
-        List<Landmark> landmarkList = landmarkService.findAll(keyword);
+        List<Landmark> landmarkList = landmarkService.findAll(null);
 
         //assert
         Assertions.assertEquals(2,landmarkList.size(), "There should be 2 landmarks in list");

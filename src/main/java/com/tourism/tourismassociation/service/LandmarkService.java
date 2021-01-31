@@ -64,4 +64,6 @@ public interface LandmarkService {
      * @param landmarkId        ID of the landmark rating is added
      */
     void updateAvgRating(float avgRating, Long landmarkId);
+
+    List<Landmark> findBySignificanceId(Long id);
 }

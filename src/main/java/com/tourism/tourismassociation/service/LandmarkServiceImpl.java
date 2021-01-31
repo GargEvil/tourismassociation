@@ -87,5 +87,11 @@ public class LandmarkServiceImpl implements LandmarkService {
         landmarkRepository.update(avgRating, landmarkId);
     }
 
+    @Override
+    public List<Landmark> findBySignificanceId(Long significanceId) {
+
+        return landmarkRepository.findBySignificance(significanceId);
+    }
+
 
 }
