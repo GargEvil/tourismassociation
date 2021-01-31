@@ -1,6 +1,7 @@
 package com.tourism.tourismassociation.configuration;
 
 import com.tourism.tourismassociation.service.UserService;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,18 +23,15 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        //Here I should let only authorized users to modify landmark
-        //currently disabling it so i can test it
-        http.csrf().disable();
-
-        //Testing user authentication
-        /*
         http.csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
-                .permitAll()
-                .anyRequest().authenticated().and().addFilter(new AuthenticationFilter(authenticationManager()));
-        */
+                .antMatchers(HttpMethod.GET, SecurityConstants.LANDMARKS_URL).permitAll() //settings /landmarks endpoint as public
+                .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL, SecurityConstants.RATINGS_URL).permitAll() //setting signup and ratings public
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(new AuthenticationFilter(authenticationManager()))
+                .addFilter(new AuthorizationFilter(authenticationManager()));
 
+        //Should disable security for swagger here
 
         //Disabling security for h2-console
         http.headers().frameOptions().disable();
