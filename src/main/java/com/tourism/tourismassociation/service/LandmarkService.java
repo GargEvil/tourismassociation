@@ -13,7 +13,8 @@ public interface LandmarkService {
 
      * @return All landmarks in the database
      **/
-    List<Landmark> findAll();
+    List<Landmark> findAll(String keyword);
+
 
     /**
      * Returns the landmark with specified id

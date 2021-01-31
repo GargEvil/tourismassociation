@@ -42,13 +42,13 @@ public class LandmarkControllerTest {
 
 
     @Test
-    @DisplayName("GET /landmarks - Found")
-    void getAllLandmarks() throws Exception {
+    @DisplayName("GET /landmarks - Found - keyword empty, should return 2 landmarks")
+    void getAllLandmarksWithoutKeyword() throws Exception {
         //arrange
         List<Landmark> landmarkList = new ArrayList<>();
         landmarkList.add(new Landmark(1,"Bascarsija",  43.8598, 18.4313, true));
         landmarkList.add(new Landmark(2,"Skadarlija",  48.8598, 15.4313, true));
-        when(landmarkService.findAll()).thenReturn(landmarkList);
+        when(landmarkService.findAll(any())).thenReturn(landmarkList);
 
         //act
         mockMvc.perform(MockMvcRequestBuilders.get("/landmarks")

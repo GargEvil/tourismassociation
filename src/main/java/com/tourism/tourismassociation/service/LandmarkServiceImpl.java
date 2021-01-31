@@ -18,8 +18,13 @@ public class LandmarkServiceImpl implements LandmarkService {
     @Autowired(required = false)
     private LandmarkRepository landmarkRepository;
 
-    public List<Landmark> findAll() {
-        return landmarkRepository.findAll();
+    public List<Landmark> findAll(String keyword) {
+        if(keyword.isEmpty()) {
+            return landmarkRepository.findAll();
+        }
+        else{
+            return landmarkRepository.findLandmarksByKeyword(keyword);
+        }
     }
 
     public Optional<Landmark> findById(Long id) {

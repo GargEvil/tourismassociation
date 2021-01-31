@@ -19,11 +19,11 @@ public class LandmarkController {
     private LandmarkService landmarkService;
 
     @RequestMapping(method = RequestMethod.GET)
-    ResponseEntity<List<Landmark>> getAllLandmarks() {
+    ResponseEntity<List<Landmark>> getAllLandmarks(@RequestParam(required = false) String keyword) {
 
         //When I create UI for application this should be LandmarkEntity -> LandmarkResponseModel
 
-        return new ResponseEntity<>(landmarkService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(landmarkService.findAll(keyword), HttpStatus.OK);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
