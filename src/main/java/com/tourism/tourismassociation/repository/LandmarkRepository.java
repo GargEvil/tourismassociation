@@ -15,7 +15,7 @@ public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
 
     Landmark findByName(String name);
 
-    @Query(value="select * from Landmark l where l.name LIKE %:keyword%",nativeQuery=true)
+    @Query(value="select * from Landmark l where l.name LIKE %:keyword% AND l.active = true",nativeQuery=true)
     List<Landmark> findLandmarksByKeyword(@Param("keyword") String keyword);
 
     @Transactional

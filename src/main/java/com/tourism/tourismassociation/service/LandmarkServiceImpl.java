@@ -19,7 +19,7 @@ public class LandmarkServiceImpl implements LandmarkService {
     private LandmarkRepository landmarkRepository;
 
     public List<Landmark> findAll(String keyword) {
-        if(keyword.isEmpty()) {
+        if(keyword == null) {
             return landmarkRepository.findAll();
         }
         else{
