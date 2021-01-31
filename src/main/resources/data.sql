@@ -26,10 +26,10 @@ CREATE TABLE IF NOT EXISTS landmark(
                                        pictures VARBINARY NULL,
                                        geo_latitude DECIMAL NOT NULL,
                                        geo_longitude DECIMAL NOT NULL,
-                                       active BIT  NULL,
+                                       active BIT NOT NULL,
                                        avg_rating FLOAT DEFAULT(0) NULL ,
-                                       municipality_id INT NULL,
-                                       significance_id INT NULL
+                                       municipality_id INT NOT NULL,
+                                       significance_id INT NOT NULL
 );
 
 DROP TABLE IF EXISTS country;
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS significance;
 
 CREATE TABLE IF NOT EXISTS significance(
                                            id INT PRIMARY KEY,
-                                           grade VARCHAR(40)
+                                           grade VARCHAR(40) NOT NULL
 );
 
 DROP TABLE IF EXISTS rating;

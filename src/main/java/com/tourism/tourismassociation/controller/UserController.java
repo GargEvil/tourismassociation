@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<UserResponseModel> createUser(@RequestBody UserRequestModel userRequest)  {
+    ResponseEntity<UserResponseModel> createUser(@Valid @RequestBody UserRequestModel userRequest)  {
 
         if(userRequest.getEmail().isEmpty() || userRequest.getPassword().isEmpty())
             throw new UserServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());

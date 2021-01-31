@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,14 +42,14 @@ public class LandmarkController {
         return new ResponseEntity<>( landmarkService.findBySignificanceId(significanceId), HttpStatus.OK);
     }
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<LandmarkDTO> createLandmark(@RequestBody LandmarkDTO landmarkDTO)
+    ResponseEntity<LandmarkDTO> createLandmark(@Valid @RequestBody LandmarkDTO landmarkDTO)
     {
 
         return new ResponseEntity<>(landmarkService.createLandmark(landmarkDTO), HttpStatus.CREATED);
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.PUT)
-    ResponseEntity<?> updateLandmark(@RequestBody LandmarkDTO landmark,
+    ResponseEntity<?> updateLandmark(@Valid @RequestBody LandmarkDTO landmark,
                                     @PathVariable Long id){
 
        return new ResponseEntity<>(landmarkService.updateLandmark(landmark, id), HttpStatus.OK);

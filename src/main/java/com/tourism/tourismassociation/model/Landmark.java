@@ -20,21 +20,23 @@ public class Landmark {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(unique = true)
     private String name;
 
     private String description;
 
     private byte[] pictures;
 
-    @Column(name= "geo_latitude")
+    @Column(name= "geo_latitude", nullable = false)
     private double geoLatitude;
 
-    @Column(name= "geo_longitude")
+    @Column(name= "geo_longitude", nullable = false)
     private double geoLongitude;
 
     @ManyToOne
     @JoinColumn(name = "municipality_id")
     private Municipality municipality;
+
 
     private boolean active;
 
@@ -43,7 +45,7 @@ public class Landmark {
     cascade = CascadeType.ALL)
     private List<Rating> ratings;
 
-    @Column(nullable = true, updatable = true)
+    @Column(name = "avg_rating")
     private float avgRating;
 
     @ManyToOne

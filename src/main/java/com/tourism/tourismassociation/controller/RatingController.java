@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class RatingController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    ResponseEntity<RatingDTO> createRating(@RequestBody RatingDTO ratingDTO)
+    ResponseEntity<RatingDTO> createRating(@Valid @RequestBody RatingDTO ratingDTO)
     {
         return new ResponseEntity<>(ratingService.createRating(ratingDTO), HttpStatus.CREATED);
     }
